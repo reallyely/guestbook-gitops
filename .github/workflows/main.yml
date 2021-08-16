@@ -32,12 +32,6 @@ jobs:
       uses: actions/checkout@master
 
     # Add steps here like linting, testing, minification, etc.
-    - name: Check Env
-      run: |
-        echo $AWS_ACCOUNT_ID \
-        && $echo AWS_ACCESS_KEY_ID \
-        && $echo AWS_SECRET_ACCESS_KEY
-
     - name: Setup ECR
       run: |
         # Login to AWS ECR
