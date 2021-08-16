@@ -32,10 +32,14 @@ jobs:
       uses: actions/checkout@master
 
     # Add steps here like linting, testing, minification, etc.
-#     - name: Setup ECR
-#       run: |
-#         # Login to AWS ECR
-#         $( aws ecr get-login-password )
+
+    - name: Configure AWS credentials from Test account
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
     - name: Build and tag the image
       run: |
         # Build and tag the image
@@ -50,11 +54,13 @@ jobs:
           cd deploy
           kustomize edit set image $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE
           cat kustomization.yaml
+
     - name: Commit kustomization
       run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -a -m "$CONTAINER_IMAGE"
+
     - name: Push changes to master
       uses: ad-m/github-push-action@master
       with:
@@ -65,8 +71,8 @@ jobs:
     # Add additional steps here like scanning of image
 
     # Only push to registry on master
-    - name: Push
+    - name: Push ECR
       if: github.ref == 'refs/heads/master'
       run: |
         # Push image to AWS ECR
-        docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE
+        docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/ely/$CONTAINER_IMAGE
