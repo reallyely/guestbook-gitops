@@ -10,7 +10,7 @@ resources:
 
 images:
 - name: 292920316842.dkr.ecr.us-east-1.amazonaws.com/ely/guestbook
-  newTag: 50c83a64b685e7bfe82cbb8c5f45dd95dceebd85
+  newTag: 3cb27cdd2a926e0c31debc7273c367ece7468ff1
 - name: 292920316842.dkr.ecr.us-east-1.amazonaws.com/guestbook
   newTag: 0d51cbb9b6aac42ed1a724409addd9e4170f1868
 - name: 457472006214.dkr.ecr.us-west-1.amazonaws.com/guestbook
