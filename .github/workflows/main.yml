@@ -32,18 +32,23 @@ jobs:
       uses: actions/checkout@master
 
     # Add steps here like linting, testing, minification, etc.
-      
+    - name: Check Env
+      run: |
+        echo AWS_ACCOUNT_ID \
+        && echo AWS_ACCESS_KEY_ID \
+        && echo AWS_SECRET_ACCESS_KEY
+
     - name: Setup ECR
       run: |
         # Login to AWS ECR
-        $( aws ecr get-login --no-include-email )
+        aws ecr get-login --no-include-email
     - name: Build and tag the image
       run: |
         # Build and tag the image
         docker build \
           -t $CONTAINER_IMAGE \
           -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE ./php-redis
- 
+
     # Set image tag in kustomization
 
     - name: Set image tag
@@ -61,8 +66,8 @@ jobs:
       with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: master
-          force: true       
-    
+          force: true
+
     # Add additional steps here like scanning of image
 
     # Only push to registry on master
