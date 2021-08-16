@@ -34,14 +34,14 @@ jobs:
     # Add steps here like linting, testing, minification, etc.
     - name: Check Env
       run: |
-        echo AWS_ACCOUNT_ID \
-        && echo AWS_ACCESS_KEY_ID \
-        && echo AWS_SECRET_ACCESS_KEY
+        echo $AWS_ACCOUNT_ID \
+        && $echo AWS_ACCESS_KEY_ID \
+        && $echo AWS_SECRET_ACCESS_KEY
 
     - name: Setup ECR
       run: |
         # Login to AWS ECR
-        aws ecr get-login --no-include-email
+        aws ecr get-login-password --no-include-email
     - name: Build and tag the image
       run: |
         # Build and tag the image
