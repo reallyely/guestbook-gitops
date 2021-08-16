@@ -63,10 +63,10 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY/$CONTAINER_IMAGE -t $CONTAINER_IMAGE ./php-redis
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY/CONTAINER_IMAGE
-          cd deploy
-          kustomize edit set image $ECR_REGISTRY/$ECR_REPOSITORY/$CONTAINER_IMAGE
-          cat kustomization.yaml
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY/$CONTAINER_IMAGE
+        cd deploy
+        kustomize edit set image $ECR_REGISTRY/$ECR_REPOSITORY/$CONTAINER_IMAGE
+        cat kustomization.yaml
     # Set image tag in kustomization
 
     # - name: Set image tag
