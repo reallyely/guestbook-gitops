@@ -1,0 +1,1 @@
+FROM gitops-flux:latest
