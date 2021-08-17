@@ -1,1 +1,1 @@
-FROM gitops-flux:latest
+FROM gitops-stack:latest
